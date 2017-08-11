@@ -1,0 +1,179 @@
+<div class="container {{touchable}}">
+    <header class="header flex-col-wrap">
+        <h1 class="logo"><span class="sr-only">JetSmarter</span></h1>
+        <ul class="menu-horizontal-small">
+            <li>
+                {{::lang('operatorPortalHome')}}
+            </li>
+            <li>
+                {{::lang('signOut')}}
+            </li>
+            <li>
+                <a href="https://bitbucket.org/davelinke/jetsmarter/overview" target="_blank">{{::lang('gitRepo')}}</a>
+            </li>
+        </ul>
+    </header>
+    <main>
+        <section>
+            <h2 class="section-header">{{::lang('flightDetails')}}</h2>
+            <div class="flight-cards">
+                <div class="card flight-card half-spaced">
+                    <div id="flightSchedule" class="flight-schedule">
+                        <div class="flex-col-wrap flight-dep-arr">
+                            <div class="half-spaced padding-sides-md airport-data">
+                                <h3>{{::lang('departs')}}</h3>
+                                <p>
+                                    {{flightData.departure.date | niceDate}}, {{flightData.departure.time}}
+                                </p>
+                                <p class="airport-name">
+                                    {{depAirport.name}} <button class="change-button" title="{{::lang('change')}}"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                                </p>
+                                <p class="airport-location">
+                                    {{depAirport.city}}, {{depAirport.state}}
+                                </p>
+                                <p>
+                                    {{::lang('fbo')}}: {{depAirport.fbo}}<br />
+                                    {{depAirport.address}}<br />
+                                    {{depAirport.city}}, {{depAirport.state}}<br />
+                                    {{depAirport.phone}}<br />
+                                    <span class="em-{{flightData.departure.enterMode}}">{{flightData.departure.enterMode}}</span>
+                                </p>
+                            </div>
+                            <div class="half-spaced padding-sides-md airport-data">
+                                <h3>{{::lang('arrives')}}</h3>
+                                <p>
+                                    {{flightData.arrival.date | niceDate}}, {{flightData.arrival.time}}
+                                </p>
+                                <p class="airport-name">
+                                    {{arrAirport.name}} <button class="change-button" title="{{::lang('change')}}"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                                </p>
+                                <p class="airport-location">
+                                    {{arrAirport.city}}, {{arrAirport.state}}
+                                </p>
+                                <p>
+                                    {{::lang('fbo')}}: {{arrAirport.fbo}}<br />
+                                    {{arrAirport.address}}<br />
+                                    {{arrAirport.city}}, {{arrAirport.state}}<br />
+                                    {{arrAirport.phone}}<br />
+                                    <span class="em-{{flightData.arrival.enterMode}}">{{flightData.arrival.enterMode}}</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div id="flightSpecs" class="flight-specs flex-col-wrap">
+                            <div class="flight-type">
+                                <div>
+                                    {{::flightData.scope}}
+                                </div>
+                            </div>
+                            <div>
+                                {{::lang('distance')}}: {{::flightData.distanceMiles}} {{::lang('miles')}}
+                            </div>
+                            <div>
+                                {{::lang('timeEstimate')}}: {{::flightData.durationMinutes | minutesToHours}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card flight-card half-spaced">
+                    <div class="flex-col-wrap">
+                        <div class="half-spaced padding-sides-md" id="flightAssets">
+                            <h3>{{::lang('aircraftDetails')}}</h3>
+                            <div class="aircraft-tail">
+                                {{::lang('tailNo')}}: <span class="uppercase">{{::aircraft.tail}}</span> <button class="change-button" title="{{::lang('change')}}"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                            </div>
+                            <table>
+                                <tr><th>{{::lang('brand')}}:</th><td>{{::aircraft.brand}}</td></tr>
+                                <tr><th>{{::lang('model')}}:</th><td>{{::aircraft.model}}</td></tr>
+                                <tr><th>{{::lang('sn')}}:</th><td>{{::aircraft.sn}}</td></tr>
+                                <tr><th>{{::lang('ttaf')}}:</th><td>{{::aircraft.ttaf}}{{::lang('hours')}}</td></tr>
+                                <tr><th>{{::lang('reg')}}:</th><td>{{::aircraft.reg}}</td></tr>
+                                <tr class="bottom-padding-md"><th>{{::lang('location')}}:</th><td>{{::aircraft.locationCountry}}, {{::aircraft.locationState}}</td></tr>
+                                <tr><th>{{::lang('frame')}}:</th><td>{{::aircraft.frame}} {{::lang('hours')}}</td></tr>
+                                <tr class="bottom-padding-md"><th>{{::lang('tsln')}}:</th><td>{{::aircraft.tsln}} {{::lang('landings')}}</td></tr>
+                                <tr><th>{{::lang('engTtsn')}}:</th><td>{{::aircraft.engTTSN}} {{::lang('hours')}}</td></tr>
+                                <tr><th>{{::lang('engTcsn')}}:</th><td>{{::aircraft.engTCSN}} {{::lang('cycles')}}</td></tr>
+                            </table>
+                        </div>
+                        <div id="flightCrew" class="half-spaced padding-sides-md">
+                            <h3>{{::lang('crew')}}</h3>
+                            <h4>{{::lang('captain')}} ({{crew.caps.length}}/{{::aircraft.crew.caps}}):</h4>
+                            <ul>
+                                <li ng-repeat="captain in crew.caps">
+                                     {{::captain.lastName}}, {{::captain.name}} <button class="change-button" title="{{::lang('change')}}"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                                </li>
+                                <li ng-if="aircraft.crew.caps>crew.caps.length">
+                                    {{::lang('addCaptain')}} <button class="add-button"title="{{::lang('addCaptain')}}"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                                </li>
+                            </ul>
+                            <h4>{{::lang('officer')}} ({{crew.officers.length}}/{{::aircraft.crew.officers}}):</h4>
+                            <ul>
+                                <li ng-repeat="officer in crew.officers">
+                                    {{::officer.lastName}}, {{::officer.name}} <button class="change-button" title="{{::lang('change')}}"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                                </li>
+                                <li ng-if="aircraft.crew.officers>crew.officers.length">
+                                    {{::lang('addOfficer')}} <button class="add-button"title="{{::lang('addOfficer')}}"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                                </li>
+                            </ul>
+                            <h4>{{::lang('attendant')}} ({{crew.attendants.length}}/{{::aircraft.crew.attendants}}):</h4>
+                            <ul>
+                                <li ng-repeat="attendant in crew.attendants">
+                                    {{::attendant.lastName}}, {{::attendant.name}} <button class="change-button" title="{{::lang('change')}}"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                                </li>
+                                <li ng-if="aircraft.crew.attendants>crew.attendants.length">
+                                    {{::lang('addAttendant')}} <button class="add-button"title="{{::lang('addAttendant')}}"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                                </li>
+                            </ul>
+                            <div>
+
+                            </div>
+                            <div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        <section class="section-guests">
+            <h2 class="section-header">{{::lang('guests')}}</h2>
+            <ul class="guest-cards flex-col-wrap no-spacing">
+                <li ng-repeat="guest in guests" class="card guest-card quarter-spaced" ng-class="{true:'',false:'incomplete'}[guest.name!==null && guest.lastName!==null && guest.weight!==null && guest.birthday!==null]">
+                    <div class="guest-pic" ng-if="guest.pic" style="background-image:url({{::guest.pic}})"></div><div class="guest-pic default" ng-if="!guest.pic"></div>
+                    <div ng-if="guest.status" class="guest-status s-{{guest.status}}"></div>
+                    <h3>
+                        <label-input ng-model="guest.name" label="{{guest.name}}" empty-label="{{::lang('guestNameNotAvailable')}}" placeholder="{{::lang('guestName')}}"></label-input>
+                        <label-input ng-model="guest.lastName" label="{{guest.lastName}}" empty-label="{{::lang('guestLastNameNotAvailable')}}" placeholder="{{::lang('guestLastName')}}"></label-input>
+                    </h3>
+                    <p>
+                        <date-input ng-model="guest.birthday" label="{{guest.birthday | niceDateOnly}}" empty-label="{{::lang('guestBirthdayNotAvailable')}}" placeholder="{{::lang('guestBirthday')}}"></date-input>
+                    </p>
+                    <p><label-input ng-model="guest.weight" label="{{guest.weight}} {{::lang('lbs')}}" empty-label="{{::lang('guestWeightNotAvailable')}}" placeholder="{{::lang('guestWeight')}}"></label-input></p>
+                    <p><label-input class="uppercase" ng-model="guest.smarterpass" label="{{::lang('smarterpassId')}}: {{guest.smarterpass}}" empty-label="{{::lang('smarterpassNotAvailable')}}" placeholder="{{::lang('guestSmarterpass')}}"></label-input></p>
+                    <button class="guest-remove" ng-click="flightMethods.removeGuest(guest.id)">{{::lang('remove')}}</button>
+                </li>
+                <li ng-if="aircraft.passengerCapacity>guests.length" class="guest-card quarter-spaced add-guest">
+                    <div class="guest-pic default" ng-show="!guest.pic"></div>
+                    <input type="text" placeholder="{{::lang('guestName')}}" ng-model="newGuest.name"/>
+                    <input type="text" placeholder="{{::lang('guestLastName')}}" ng-model="newGuest.lastName"/>
+                    <input type="date" placeholder="{{::lang('guestBirthday')}}" ng-model="newGuest.birthday"/>
+                    <input type="text" placeholder="{{::lang('guestWeight')}}" ng-model="newGuest.weight"/>
+                    <input type="text" placeholder="{{::lang('guestSmarterpass')}}" ng-model="newGuest.smarterpass"/>
+                    <button class="guest-add" ng-click="flightMethods.addGuest()">{{::lang('addGuest')}}</button>
+                </li>
+            </ul>
+        </section>
+        <section class="confirmation text-right">
+            <button class="cancel-flight btn btn-default btn-lg" ng-click="flightMethods.cancelFlight()">{{::lang('cancelFlight')}}</button>
+            <button class="confirm-flight btn btn-success btn-lg" ng-click="flightMethods.confirmFlight()">{{::lang('confirmFlight')}}</button>
+        </section>
+        <div id="messages">
+
+        </div>
+        <div id="notes">
+
+        </div>
+    </main>
+    <footer>
+
+    </footer>
+</div>

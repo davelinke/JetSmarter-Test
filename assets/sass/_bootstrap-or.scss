@@ -1,0 +1,16 @@
+h3{
+    font-size: 1.25em;
+    font-weight: 700;
+}
+h4{
+    font-size: 1em;
+    font-weight: 700;
+}
+.btn-success{
+    background-color: $color-go;
+    border-color:$color-go;
+    &:hover,&:focus{
+        background-color: $color-go-light;
+        border-color:$color-go-light;
+    }
+}

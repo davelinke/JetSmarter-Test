@@ -1,0 +1,28 @@
+{
+  "name": "jetsmarter-reservation",
+  "version": "0.0.1",
+  "author": "David Linke",
+  "homepage": "http://jesmarter.davelinke.com",
+  "engines": {
+    "node": ">= 0.12.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@bitbucket.org:davelinke/jetsmarter.git"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "request": "~2.51.0",
+    "time-grunt": "~1.0.0",
+    "load-grunt-tasks": "~2.0.0",
+    "grunt-contrib-jade": "latest",
+    "grunt-contrib-copy": "latest",
+    "grunt-contrib-sass": "latest",
+    "grunt-browser-sync": "latest",
+    "grunt-contrib-concat": "latest",
+    "grunt-contrib-uglify": "^0.8.0",
+    "grunt-contrib-htmlmin": "latest",
+    "grunt-contrib-watch": "latest",
+    "grunt-notify": "latest"
+  }
+}

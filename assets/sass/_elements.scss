@@ -1,0 +1,292 @@
+html,body,#mainWrapper{
+	font-family: 'Raleway', sans-serif;
+	color:$color-zero;
+	font-size:10px; // trick to ease the em calculation
+}
+.header{
+	@include section-underline();
+    font-size: 1.2em;
+}
+.logo{
+	display: block;
+	width: 180px;
+	height: 35px;
+	background-image: $image-logo;
+	margin: 0.5em 0;
+}
+.section-header{
+	font-family:'Open Sans Condensed', sans-serif;
+	text-transform:uppercase;
+	color:$color-one;
+	font-size:1.8rem;
+	@include section-underline();
+}
+.menu-horizontal-small{
+	display: flex;
+	list-style: none outside;
+	margin: 0;
+	padding: 0;
+	& > li{
+		margin:auto 1em;
+		&:first-child{
+			margin-left:0;
+		}
+		&:last-child{
+			margin-right:0;
+		}
+	}
+}
+.card{
+    background-image: linear-gradient(170deg, #fefefe 0%, #f1f2f2 100%);
+    box-shadow: 0px 1px 1px 1px rgba(0,0,0,0.2);
+	&.incomplete{
+    	background-image: linear-gradient(170deg, #ffeae7 0%, #ffd9d4 100%);
+	}
+}
+.section-guests{
+	@include section-underline();
+	padding-bottom:2em;
+	margin-bottom:2em;
+}
+.guest-pic{
+	width:65px;
+	height:65px;
+	background-size:cover;
+	border-radius: 50%;
+	margin:1em auto 0;
+	position: relative;
+	&.default{
+		background-image: $image-guest-default;
+	}
+}
+.incomplete{
+	.guest-pic::before{
+		font-family: 'Fontawesome';
+		content:"\f12a";
+		display:block;
+		width: 31px;
+		height: 31px;
+		border-radius: 50%;
+		background-color: $color-error;
+		position: absolute;
+		right:-10px;
+		bottom:-10px;
+		color:$color-error-inv;
+	    font-size: 21px;
+	    text-align: center;
+	    line-height: 32px;
+	}
+}
+.guest-cards{
+	list-style: none outside;
+	margin: 0 -1rem;
+	padding:0;
+	text-align: center;
+}
+.guest-card{
+	position: relative;
+	font-size:1.4rem;
+	padding-bottom:2em;
+	min-width:223px;
+	margin: 0 0.5rem 1rem;
+	&.add-guest {
+	    border: 4px dashed $color-three;
+	    background-color: $color-four;
+		input{
+			width:calc(100% - 2em);
+			margin: 0 1em 0.5em;
+			&:first-of-type{
+				margin-top: 1.5em;
+			}
+		}
+	}
+	input{
+		text-align:center;
+		width:100%;
+		border:0;
+	}
+}
+.guest-status{
+	width:54px;
+	height:54px;
+	position:absolute;
+	top:0;
+	right:0;
+	&.s-1{}
+	&.s-2{}
+	&.s-3{}
+	&.s-4{
+		background-image: $image-guest-status-gold;
+	}
+	&.s-5{
+		background-image: $image-guest-status-platinum;
+	}
+}
+.guest-remove{
+	display: block;
+	width:100%;
+	background-color: $color-secondary;
+	color:$color-secondary-inv;
+	border:0;
+	text-transform: uppercase;
+	padding:0.5em 0;
+	position: absolute;
+	bottom: 0;
+	&:hover,&:focus{
+		background-color: $color-error;
+	}
+}
+.guest-add{
+	display: block;
+	width:calc(100% + 8px);
+	background-color: $color-go;
+	color:$color-go-inv;
+	border:0;
+	text-transform: uppercase;
+	padding:0.5em 0;
+	position: absolute;
+	bottom: -4px;
+	left:-4px;
+	&:hover,&:focus{
+		background-color: $color-go-light;
+	}
+}
+label-input,date-input{
+	display:block;
+	cursor: pointer;
+	.label-input{
+		display: block;
+		width: 100%;
+	}
+	&:hover{
+		background-color: $white
+	}
+	.vis{
+		opacity:1;
+	}
+	.hid{
+		position: absolute;
+		opacity:0;
+		pointer-events: none;
+	}
+}
+
+.flight-schedule {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.flight-dep-arr{
+	flex-grow: 1;
+	flex-shrink: 1;
+	border-bottom:1px solid #c2c2c2;
+}
+.airport-data{
+	display:flex;
+	flex-direction: column;
+}
+.airport-name{
+	font-size:1.25em;
+	flex-grow: 1;
+	flex-shrink: 1;
+}
+.airport-location{
+	font-size:1.125em;
+}
+.em-entered{
+	color:$color-go;
+	text-transform: uppercase;
+}
+.em-suggested{
+	color:$color-secondary;
+	text-transform: uppercase;
+}
+.flight-cards{
+	width:100%;
+	display:flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+    font-size: 13px;
+
+	h3 {
+	    margin: 0.5em 0;
+	}
+	ul{
+		padding: 0 0 0 1.25em;
+	}
+}
+.flight-card{
+	margin-bottom:2em;
+}
+.flight-specs{
+	flex-grow: 0;
+	flex-shrink: 0;
+	background-color: $color-five;
+	bottom: 0;
+    padding: 0.5em 1em;
+    font-size: 1.4rem;
+    border-top: 1px solid $white;
+}
+.flight-type{
+	display:block;
+	width:25px;
+	height: 25px;
+	background-color: $color-info;
+	color:$color-info-inv;
+	border-radius:50%;
+	font-size:1.1rem;
+	font-weight: 700;
+	@include flex-align-cross();
+}
+.flight-specs > *{
+	@include flex-align-cross();
+}
+.aircraft-tail{
+	font-size:1.5em;
+}
+tr{
+	th{
+		padding-right:0.5em;
+		white-space: nowrap;
+	}
+	th,td{
+		vertical-align: top;
+	}
+	&.bottom-padding-md{
+		& > td, & > th{
+			padding-bottom:1em;
+		}
+	}
+}
+.change-button,.add-button {
+	height: 1.75em;
+    width: 1.75em;
+    padding: 0;
+    margin: 0;
+    font-size: 0.75em;
+    border-radius: 0.9em;
+    border: 0;
+    display: inline-block;
+}
+.change-button{
+    color: $white;
+    background-color: $color-three;
+	&:hover,&:focus{
+		background-color: $color-zero;
+	}
+}
+.add-button{
+    color: $white;
+    background-color: $color-go;
+	&:hover,&:focus{
+		background-color: $color-go-light;
+	}
+}
+.confirmation{
+	padding:1em 0 3em;
+	button{
+		text-transform: uppercase;
+		margin-left:1em;
+		margin-bottom: 1em;
+	}
+}
